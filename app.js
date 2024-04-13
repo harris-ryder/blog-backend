@@ -4,12 +4,25 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
+const compression = require("compression");
+const helmet = require("helmet");
+
 require('dotenv').config();
 var cors = require('cors');
+
+// Set up rate limiter: maximum of twenty requests per minute
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
 
 
 //GRAB DATABASE CONNECTION
 const connection = require('./config/database');
+app.use(compression()); // Compress all routes
 
 
 var indexRouter = require('./routes/index');
