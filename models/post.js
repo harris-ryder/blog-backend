@@ -28,7 +28,7 @@ PostSchema.virtual("imageUrl").get(function(){
     return "data:image/png;base64," + this.file.toString("base64");
   }
 
-  const rndInt = Math.floor(Math.random() * 6) + 1
+  const rndInt = Math.floor(Math.random() * 26) + 1
 
   return `https://picsum.photos/id/${rndInt}/800/300`;
 });
