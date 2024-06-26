@@ -11,21 +11,25 @@ const User = require("../models/user");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
 
-router.get(
-  "/",
-  passport.authenticate("jwtOptional", { session: false }),
-  async function (req, res, next) {
-    const posts = await Post.find()
-      .sort({ date: 1 })
-      .limit(10)
-      .populate("user")
-      .populate("comments")
-      .exec();
-    res
-      .status(200)
-      .json({ user: req.user, isAuth: req.isAuthenticated, posts: posts });
+router.get("/", async function (req, res, next) {
+  if (!req.user) {
+      console.log("Authentication failed: No user found");
+      return res.status(401).json({ message: "No valid token provided" });
   }
-);
+  try {
+    const posts = await Post.find()
+        .sort({ date: 1 })
+        .limit(10)
+        .populate("user")
+        .populate("comments")
+        .exec();
+    console.log("Posts fetched successfully:", posts);
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    res.status(500).json({ message: "Error fetching posts" });
+  }
+});
 
 //Create a post
 router.get("/create",passport.authenticate("jwtOptional", { session: false }), async function (req, res, next) {

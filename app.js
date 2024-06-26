@@ -49,6 +49,10 @@ const limiter = RateLimit({
 app.use(limiter);
 app.use(compression()); // Compress all routes
 
+app.use(cors({
+  origin: '*' // Allow all origins
+}));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

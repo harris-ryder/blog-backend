@@ -11,7 +11,10 @@ const Comment = require("../models/comment");
 const { default: mongoose } = require("mongoose");
 
 /* GET All Posts. */
-router.get("/", function (req, res, next) {});
+router.get("/", function (req, res, next) {
+  console.log("hi");
+  next();
+});
 
 // Get category posts
 router.get("/category/:tag", async function (req, res, next) {
