@@ -20,7 +20,7 @@ router.get("/", async function (req, res, next) {
         .populate("comments")
         .exec();
     console.log("Posts fetched successfully:", posts);
-    res.status(200).json({ user: null, isAuth: true, posts: posts });
+    res.status(200).json({ user: null, isAuth: false, posts: posts });
   } catch (error) {
     console.error("Error fetching posts:", error);
     res.status(500).json({ message: "Error fetching posts" });
