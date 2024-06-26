@@ -12,10 +12,6 @@ const Post = require("../models/post");
 const Comment = require("../models/comment");
 
 router.get("/", async function (req, res, next) {
-  if (!req.user) {
-      console.log("Authentication failed: No user found");
-      return res.status(401).json({ message: "No valid token provided" });
-  }
   try {
     const posts = await Post.find()
         .sort({ date: 1 })
@@ -30,6 +26,8 @@ router.get("/", async function (req, res, next) {
     res.status(500).json({ message: "Error fetching posts" });
   }
 });
+
+
 
 //Create a post
 router.get("/create",passport.authenticate("jwtOptional", { session: false }), async function (req, res, next) {
