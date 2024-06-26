@@ -49,10 +49,10 @@ const limiter = RateLimit({
 app.use(limiter);
 app.use(compression()); // Compress all routes
 
-const corsOptions ={
-  origin:'http://localhost:3000', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://newspaper.harris-ryder.com'],
+  credentials: true,            // access-control-allow-credentials:true
+  optionSuccessStatus: 200
 }
 app.use(cors(corsOptions));
 
